@@ -1,11 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Dashboard{% endblock title %}
 
 {% block head %}
-
+    <link rel="stylesheet" href={% static "dash/main_style.css" %}>
+    <link rel="stylesheet" href={% static "dash/card_style.css" %}>
 {% endblock head %}
 
 {% block body %}
 
+    <div class="project_section"> 
+        <div class="projects">
+            <div class="upper">
+                <h3 class="upper_title">Projects</h3> 
+                <form action={% url "dash:projects" 'add' %}>
+                    <button type="submit">+</button>
+                  </form>
+            </div> 
+
+            <div class="all_cards">
+                {% for p in all_pro %} 
+                    {% include "dash/includes/card.html" %}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
 {% endblock body %}

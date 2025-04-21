@@ -1,14 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href={% static "style.css" %}>
     {% block head %}{% endblock head %}
 </head>
 <body>
+  <div class="screen">
+    <header class="title-bar">
+        <div class="logo">Contract Management</div>
+        <nav class="nav-buttons">
+          <a href="{% url "dash:dash" %}">Dashboard</a>
+          <a href="{% url "dash:projects" 'all' %}">Projects</a>
+          <a href="{%url "dash:transactions" %}">Transactions</a>
+          <a href="#">Report</a>
+        </nav>
+      </header>
     {% block body %}
     
+    
     {% endblock body %}
+    </div>
 </body>
 </html>

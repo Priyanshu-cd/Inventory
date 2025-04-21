@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href={% static "dash/one_style.css" %}>
+{% endblock head %}
+{% block body %}
+<div class="one">
+    <div class="upper">
+        <div class="upper_section">
+        <h2 class="upper_text">{{upper_text}}Transactions</h2>
+            <div class="upper_select">
+                <form action="{% url "dash:transactions" %}" method='GET'>
+
+                    <button class="upper_btn" {% if view == "all" %} style="background: #59a2f0;" {%endif%} >All</button></form>
+                <form action="{% url "dash:trans_spend" %}" method='GET'>
+                    <button class="upper_btn" {% if view == "exp" %} style="background: #59a2f0;" {%endif%}>Spend</button></form>
+                <form action="{% url "dash:trans_advance" %}" method='GET'>
+                    <button class="upper_btn"{% if view == "adv" %} style="background: #59a2f0;" {%endif%}>Advance</button></form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,47 @@
+<div class="dashboard-card">
+  {% comment %} <div class="more-icon">⋮</div> {% endcomment %}
+  {% comment %} <form action={% url "dash:update" p.id  "None" "None" %}><button type="submit">edit</button></form>
+  <a href={% url "dash:one" p.id %}>{{p.name}}({{p.is_active}})</a>
+  <p>Created in {{p.date_created}} ({{p.description}}) |</p>
+  <p style="color:green;">Advance: Total: <span style="font-size:24px;">{{p.lifetime_advance}} </span> / Left: <span style="font-size:24px;">{{p.advance_total}} |</span></p>
+  <p style="color:red;">Expense Sell: <span style="font-size:24px;">{{p.sell_total}}</span> / Buy: <span style="font-size:24px;">{{p.buy_total}} |</span></p>
+  <p style="color:green;">Profit: <span style="font-size:24px;">{{p.profit_total}} </span></p>
+  <a href={% url "dash:one" p.id %}>more</p> {% endcomment %}
+{% comment %} </div> {% endcomment %}
+
+<table border="1">
+            <tbody>
+                <tr>
+                  <td><form action={% url "dash:update" p.id  "None" "None" %}><button type="submit">edit</button></form> 
+                
+                  <a href={% url "dash:one" p.id %}><p>{{p.name}}({{p.is_active}})</p></a>
+                  </td>
+
+                  <td>Created in {{p.date_created}}<br>({{p.description}})</td>
+                  
+                  <td>Advance Left: 
+                  
+                    {% if p.advance_total > 0 %}
+                      <span style="font-size:24px;color:green">
+                    {%else%}
+                      <span style="font-size:24px;color:red">
+                    {%endif%}
+                  
+                  {{p.advance_total}}</span><br><span style="font-size:18px;color:grey;">Total: {{p.lifetime_advance}} </span></td>
+
+                  <td style="color:Red;">Expense: <span style="font-size:24px;">{{p.sell_total}}<br><span style="font-size:18px; color:grey;">Buy: {{p.buy_total}} </span></span></td>
+
+                  <td>Profit: 
+                    {% if p.profit_total > 0 %}
+                      <span style="font-size:24px;color:green">
+                    {%else%}
+                      <span style="font-size:24px;color:red">
+                    {%endif%}
+                    {{p.profit_total}} </span></td>
+
+                  <td><a href={% url "dash:one" p.id %}>more</p></td>
+
+                </tr>     
+              </tbody>
+</table>
+</div>

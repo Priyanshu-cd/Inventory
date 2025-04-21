@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}} -edit{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href={% static "dash/update_style.css" %}>
+{% endblock head %}
+
+{% block body %}
+<div class="update_form">
+    <h3> UPDATE ({{title}})</h3>
+    <form method="POST">
+        <table>
+            {% csrf_token %}
+            {{form.as_table}}
+        </table>
+
+        <button type ="Submit" name="action" value="save" style="margin:18px;">Save</button>
+        <button type="submit" name="action" value="delete"
+            onclick="return confirm('Are you sure want to delete?');">
+            Delete
+        </button>
+    </form>
+</div>
+{% endblock body %}

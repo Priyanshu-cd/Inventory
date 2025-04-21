@@ -1,0 +1,47 @@
+form = forms.AdvanceForm(request.POST or None)
+    filters=forms.FilterForm(request.POST or None)
+    try:
+        id = request.COOKIES['id']
+        filters.fields['project'].initial = id
+        form.fields['project'].initial=id
+
+        try:
+            date = request.COOKIES['date']
+            filters.fields['date'].initial = date
+        except:
+            filters.is_valid()
+            date = filters.cleaned_data.get('date') or timezone.now().date()
+        data = models.AdvanceDetail.objects.filter(project_id=id,date=date)
+    except:
+        data = models.AdvanceDetail.objects.filter(date=timezone.now())
+    try:
+        org=models.Organization.objects.first()
+        project=org.projects.get(id=id)
+        upper_text=project.name
+    except Exception as e:
+        upper_text="All"
+
+    if request.method == 'POST':
+        if form.is_valid():
+            instance=form.save()
+            return HttpResponseRedirect(reverse("dash:transactions"))
+        if filters.is_valid():
+
+            filter_project = filters.cleaned_data.get("project")
+            filter_date = filters.cleaned_data.get("date")
+            response = HttpResponseRedirect(reverse("dash:trans_advance" ))
+            response.set_cookie("id",f"{filter_project.id}")
+            response.set_cookie("date",f"{filter_date}")
+            return response
+
+
+
+
+    return render(request, "dash/transactions.html", {
+        "notify": " -Advance",
+        "form": form,
+        "view": "adv",
+        "data":data,
+        "filters":filters,
+        "upper_text":f"{upper_text} -",
+    })

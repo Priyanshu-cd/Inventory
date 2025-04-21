@@ -1,0 +1,72 @@
+.transactions{
+    width: auto;
+}
+.upper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+
+}
+.upper_select{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+}
+.upper_btn{
+    font-size: 18px;
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.data{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    /* align-items: center; */
+}
+
+.add_table{
+    border: 2px solid black;
+    flex: 1;
+    border-radius: 10px;
+    padding: 16px 8px;
+    margin:8px 8px;
+    /* transform: scale(0.8s); */
+
+}
+.all_data {
+    margin-right: 12px;
+    border-collapse: separate;
+    border-spacing: 10px;
+    flex: 2;
+  }
+  td, th {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+.upper_section{
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+.upper_filters{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap: 16px;
+}

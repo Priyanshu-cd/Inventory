@@ -1,6 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+.project_section{
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.upper{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
   
+}

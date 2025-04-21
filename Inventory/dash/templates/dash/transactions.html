@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Transactions {{notify}}{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "dash/transactions_style.css" %}">
+{% endblock head %}
+
+{% block body %}
+
+<div class="transactions">
+    <div class="upper">
+      <div class="upper_section">
+        <h2 class="upper_text">{{upper_text}}Transactions</h2>
+
+        <form class="upper_filters"  method='POST'>
+            {% csrf_token %}
+
+            {% if filters %}
+            {{ filters}}
+            {% endif %}
+            <button type="submit">Apply</button>
+        </form>
+
+      </div>
+        <div class="upper_select">
+        <form action="{% url "dash:transactions" %}" method='GET'>
+
+            <button class="upper_btn" {% if view == "all" %} style="background: #59a2f0;" {%endif%} >All</button></form>
+        <form action="{% url "dash:trans_spend" %}" method='GET'>
+            <button class="upper_btn" {% if view == "exp" %} style="background: #59a2f0;" {%endif%}>Spend</button></form>
+        <form action="{% url "dash:trans_advance" %}" method='GET'>
+            <button class="upper_btn"{% if view == "adv" %} style="background: #59a2f0;" {%endif%}>Advance</button></form>
+        </div>
+    </div>
+
+
+    <div class="data">
+        {% if view == "all" %}
+
+        <div class="all_data">
+
+
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Details</th>
+                <th>Amount / Buy Price</th>
+                <th>Mode / Sell Price</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in data %}
+                <tr>
+                  <td>{{ item.project.name }}</td>
+                  {% if item.amount %}
+                    <!-- AdvanceDetail -->
+                    <td><span style="color:green;">(ADVANCE)</span>: {{ item.description }}</td>
+                    <td>₹{{ item.amount }}</td>
+                    <td>{{ item.mode }}</td>
+                    <td>{{ item.date }}
+
+                      {% if item.project.is_active == True %}
+                      <form action={% url "dash:update" item.project.id  "None" item.id %}><button type="submit">edit</button></form>
+                      {% endif %}
+                    </td>
+                  {% else %}
+                    <!-- Inventory -->
+                    <td><span style="color:red;">(SPEND)</span>: {{item.product_name}} / {{ item.description }} / QTY:{{item.quantity}}</td>
+                    <td>₹{{ item.buy_price }} / Total: <span style="color:red;font-size:24px;">- ₹{{item.total_buy}}</span></td>
+                    <td>₹{{ item.sell_price }} / Total({{item.total_sell}})</td>
+                    <td>{{ item.date }}  / Profit: <span style="color:green;font-size:24px;">+ ₹{{item.total_profit}}
+                      {% if item.project.is_active == True %}
+                      <form action={% url "dash:update" item.project.id  item.id "None" %}><button type="submit">edit</button></form><span>
+                        {% endif %}
+                      </td>
+                  
+                    {% endif %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          
+          
+
+        
+        </div>
+        {% endif %}
+
+
+        {% if view == "exp" %}
+        <form method='POST' action="{% url 'dash:trans_spend' %} " class="add_table">
+          <h2>Add Spend</h2>
+            <table>
+                {% csrf_token %}
+                {{form.as_table}}
+            </table>
+            <button type="submit">save</button>
+        </form>
+
+        <div class="all_data">
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in data %}
+                    <tr>
+                      <td>{{ item.project.name }}</td>
+                      <td>{{ item.product_name }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.description }}</td>
+                      <td>{{ item.buy_price }}</td>
+                      <td>{{ item.sell_price }}</td>
+                      <td>{{ item.date }} 
+
+                        {% if item.project.is_active == True %}
+                        <form action={% url "dash:update" item.project.id item.id "None" %}><button type="submit">edit</button></form>
+                        {%endif%}
+                      </td>
+                      
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="7">No data available</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            
+        </div>
+        {%endif%}
+
+        {% if view == "adv" %}
+        <form method='POST' action="{% url 'dash:trans_advance' %}" class="add_table">
+          <h2>Add  Advance</h2>
+            <table>
+                {% csrf_token %}
+                {{form.as_table}}
+            </table>
+            <button type="submit">save</button>
+        </form>
+        
+        <div class="all_data">
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Mode</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in data %}
+                    <tr>
+                      <td>{{ item.project.name }}</td>
+                      <td>{{ item.amount }}</td>
+                      <td>{{ item.description }}</td>
+                      <td>{{ item.mode }}</td>
+                      <td>{{ item.date }} 
+
+                        {% if item.project.is_active == True %}
+                        <form action={% url "dash:update" item.project.id  "None" item.id%}><button type="submit">edit</button></form>
+                        {% endif %}
+                      </td>
+
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="5">No advance details available</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+                           
+        </div>
+        {%endif%}
+
+    </div>
+
+</div>
+
+{% endblock body %}
