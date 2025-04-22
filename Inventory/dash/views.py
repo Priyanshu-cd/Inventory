@@ -32,7 +32,7 @@ def dash_one(request,id):
         filters=forms.FilterForm()
         filters.fields['date'].initial=None
         filters.fields['project'].initial=project.id
-        response=render(request,"dash/one.html",{"upper_text":f"{project.name} -",})
+        response=render(request,"dash/one.html",{"upper_text":f"{project.name} -","project":project,})
         response.set_cookie("id",project.id)
         response.set_cookie("one",True)
         return response
@@ -164,6 +164,9 @@ def dash_spend(request):
     form.fields['project'].initial=id
 
     filters.fields['date'].initial=date
+
+    #Form initials:
+    form.fields['quantity'].initial = 1
 
     if id  is None and date is None:
         data=models.Inventory.objects.all()

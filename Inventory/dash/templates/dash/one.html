@@ -2,6 +2,7 @@
 {% load static %}
 {% block head %}
     <link rel="stylesheet" href={% static "dash/one_style.css" %}>
+    <link rel="stylesheet" href="{% static "dash/little_card_style.css" %}">
 {% endblock head %}
 {% block body %}
 <div class="one">
@@ -19,6 +20,17 @@
             </div>
         </div>
     </div>
+    
+    <div class="info">
+        {% include "dash/includes/little_card.html" with title="Advance Left" value=project.advance_total%}
+        {% include "dash/includes/little_card.html" with title=" Total Advance" value=project.lifetime_advance%}
+
+        {% include "dash/includes/little_card.html" with title="Buy" value=project.buy_total%}
+        {% include "dash/includes/little_card.html" with title="Sell" value=project.sell_total%}
+        {% include "dash/includes/little_card.html" with title="Profit" value=project.profit_total%}
+
+
+    </div> 
 </div>
 
 {% endblock body %}

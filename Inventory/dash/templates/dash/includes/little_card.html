@@ -1,0 +1,12 @@
+<div class="little_card" style="background-color: {% if value > 0 %}#e0f7e9{% else %}#ffe5e5{% endif %};">
+    <h3>{{title}}</h3>
+    <p class="amount">₹ {{ value }}</p>
+</div>
+
+
+  {% comment %} <div class="form-group">
+    <label for="name">{{form.description.label}}</label>
+    {{form.description}}
+    <div class="help-text">{{form.description.help_text}}</div>
+    <div class="error-text">{{form.description.errors}}</div>
+</div> {% endcomment %}
