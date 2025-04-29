@@ -1,3 +1,7 @@
+#pip freeze > req.txt
+#in cmd promt > .\venv\Scripts\activate    # Windows
+#pip install -r req.txt
+
 form = forms.AdvanceForm(request.POST or None)
     filters=forms.FilterForm(request.POST or None)
     try:
