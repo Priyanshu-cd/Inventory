@@ -8,7 +8,7 @@
 <div class="one">
     <div class="upper">
         <div class="upper_section">
-        <h2 class="upper_text">{{upper_text}}Transactions</h2>
+        <h2 class="upper_text">{{upper_text}}</h2>
             <div class="upper_select">
                 <form action="{% url "dash:transactions" %}" method='GET'>
 
@@ -22,12 +22,14 @@
     </div>
     
     <div class="info">
-        {% include "dash/includes/little_card.html" with title="Advance Left" value=project.advance_total%}
-        {% include "dash/includes/little_card.html" with title=" Total Advance" value=project.lifetime_advance%}
+        {% include "dash/includes/little_card.html" with title="Total Transactions" value=total_trans %}
 
-        {% include "dash/includes/little_card.html" with title="Buy" value=project.buy_total%}
-        {% include "dash/includes/little_card.html" with title="Sell" value=project.sell_total%}
-        {% include "dash/includes/little_card.html" with title="Profit" value=project.profit_total%}
+        {% include "dash/includes/little_card.html" with title="Advance Left" value=project.advance_total type="check" %}
+        {% include "dash/includes/little_card.html" with title=" Total Advance" value=project.lifetime_advance type="check" %}
+
+        {% include "dash/includes/little_card.html" with title="Buy" value=project.buy_total clr="red" %}
+        {% include "dash/includes/little_card.html" with title="Sell" value=project.sell_total clr="red" %}
+        {% include "dash/includes/little_card.html" with title="Profit" value=project.profit_total type="check" %}
 
 
     </div> 

@@ -34,4 +34,5 @@
     flex-direction: row;
     gap: 16px;
     padding: 12px;
+    flex-wrap:wrap;
 }

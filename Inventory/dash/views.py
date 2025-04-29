@@ -29,10 +29,14 @@ def dash_one(request,id):
     try:
         org=models.Organization.objects.first()
         project=org.projects.get(id=id)
-        filters=forms.FilterForm()
-        filters.fields['date'].initial=None
-        filters.fields['project'].initial=project.id
-        response=render(request,"dash/one.html",{"upper_text":f"{project.name} -","project":project,})
+        try:
+            total_adv=models.AdvanceDetail.objects.filter(project=project).count()
+            total_exp=models.Inventory.objects.filter(project=project).count()
+        except Exception as r:
+            print(r)
+        response=render(request,"dash/one.html",{"upper_text":f"{project.name}","project":project,
+                                                 "total_adv":total_adv, "total_exp":total_exp,
+                                                 "total_trans":total_exp+total_adv})
         response.set_cookie("id",project.id)
         response.set_cookie("one",True)
         return response

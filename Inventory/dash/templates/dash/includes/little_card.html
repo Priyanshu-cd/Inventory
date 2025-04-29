@@ -1,6 +1,19 @@
-<div class="little_card" style="background-color: {% if value > 0 %}#e0f7e9{% else %}#ffe5e5{% endif %};">
+<div class="little_card" 
+  {% if type == "check" %}
+    style="background-color: {% if value <= 0 %}#AD102F{% else %}#0B6623{% endif %};"
+  {% else %}
+  style="background-color: {% if clr == "green" %}#0B6623{% elif clr == "red" %}#AD102F{% endif %};"
+  {% endif %}>
+
     <h3>{{title}}</h3>
-    <p class="amount">₹ {{ value }}</p>
+    <p class="amount" 
+    {% if type == "check" %}
+    style="color: #FFFFFF;"
+    {% else %}
+    style="color: {% if clr == "green" %}#FFFFFF{% elif clr == "red" %}#FFFFFF {% else %}#000000 {% endif %};"
+    {% endif %}>
+      {{ value }}
+    </p>
 </div>
 
 
