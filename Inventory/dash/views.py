@@ -391,7 +391,7 @@ def dash_update(request,project_id,spend_id,advance_id):
 
                     form_project.save()
                     instance.save()
-                    return HttpResponseRedirect(reverse("dash:projects",args=["all"]))
+                    return HttpResponseRedirect(reverse("dash:trans_advance"))
                 else:
                     form=forms.ProjectForm(instance=project)
             elif form_type=="spend":
@@ -421,7 +421,7 @@ def dash_update(request,project_id,spend_id,advance_id):
                     form_project.profit_total += instance.total_profit
                     form_project.save()
                     instance.save()
-                    return HttpResponseRedirect(reverse("dash:projects",args=["all"]))
+                    return HttpResponseRedirect(reverse("dash:trans_spend"))
                 else:
                     form=forms.ExpenseForm(instance=project)
 
